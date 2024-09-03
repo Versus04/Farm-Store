@@ -1,3 +1,4 @@
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -14,6 +15,7 @@ import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -21,6 +23,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.farm_store.viewmodels.AuthState
 import com.example.farm_store.viewmodels.AuthViewModel
 
 @Composable
@@ -30,10 +33,22 @@ fun SignUpPage(modifier: Modifier,
 ) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+    val context = LocalContext.current
 
     val gradientColors = listOf(Color(0xFFCFFFBE), Color(0xFF7BFF4C))
     val brush = Brush.verticalGradient(gradientColors)
     val authState=authViewModel.authState.observeAsState()
+    LaunchedEffect(authState.value) {
+        when(authState.value){
+            is AuthState.Authenticated ->{
+                navController.navigate("Home")
+            }
+            is AuthState.Unauthenticated ->{
+                Toast.makeText(context,authState.value.toString(), Toast.LENGTH_SHORT).show()
+            }
+            else -> Unit
+        }
+    }
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -83,7 +98,7 @@ fun SignUpPage(modifier: Modifier,
                 colors = ButtonDefaults.buttonColors(containerColor = Color.Black)
             ) {
                 Text(
-                    "Sign Up",
+                    "Create Account",
                     color = gradientColors[0],
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold

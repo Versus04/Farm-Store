@@ -18,7 +18,7 @@ fun homePage( modifier: Modifier    ,navController: NavController , authViewMode
     val authState=authViewModel.authState.observeAsState()
     LaunchedEffect(authState.value){
         when(authState.value){
-            is AuthState.Authenticated ->navController.navigate("login")
+            is AuthState.Unauthenticated ->navController.navigate("login")
             else -> Unit
         }
     }

@@ -44,7 +44,7 @@ fun LoginPage(modifier: Modifier,
             is AuthState.Authenticated -> {
                 navController.navigate("Home")
             }
-            is AuthState.Unauthenticated ->{
+            is AuthState.Error ->{
                 Toast.makeText(context,authState.value.toString(),Toast.LENGTH_SHORT).show()
             }
             else -> Unit
@@ -93,6 +93,7 @@ fun LoginPage(modifier: Modifier,
 
             Button(
                 onClick = { authViewModel.login(email,password) },
+                enabled = authState.value!=AuthState.Loading,
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(56.dp)
