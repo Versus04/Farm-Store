@@ -20,43 +20,44 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.farm_store.R
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AccountPage(onLogout: () -> Unit) {
+fun AccountPage(onLogout: () -> Unit , navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFFE8F5E9))
+            .background(MaterialTheme.colorScheme.surface)
             .padding(16.dp)
     ) {
         // Green header
-
-            ImprovedBanner(R.drawable.profile , "Sukant Bihari")
-
-
+Row(horizontalArrangement = Arrangement.Center , verticalAlignment = Alignment.CenterVertically) {
+    Text("Hello Sukant Bihari", fontSize = 20.sp, fontWeight = FontWeight.Bold)
+}
         Spacer(modifier = Modifier.height(16.dp))
 
         // Account options
         AccountOption(
             icon = Icons.Default.DateRange,
             text = "WEEKLY REPORT"
+            , onclick = { navController.navigate("weekly") }
         )
         AccountOption(
             icon = Icons.Default.Person,
-            text = "MY PROFILE"
+            text = "MY PROFILE",onclick = {navController.navigate("weekly")}
         )
         AccountOption(
             icon = Icons.Default.Person,
-            text = "TERMS AND CONDITIONS"
+            text = "TERMS AND CONDITIONS",onclick = {navController.navigate("weekly")}
         )
         AccountOption(
             icon = Icons.Default.Person,
-            text = "PRIVACY CENTRE"
+            text = "PRIVACY CENTRE",onclick = {navController.navigate("weekly")}
         )
         AccountOption(
             icon = Icons.Default.Person,
-            text = "HELP AND SUPPORT"
+            text = "HELP AND SUPPORT",onclick = {navController.navigate("weekly")}
         )
 
         Spacer(modifier = Modifier.weight(1f))
@@ -80,13 +81,13 @@ fun AccountPage(onLogout: () -> Unit) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AccountOption(icon: ImageVector, text: String) {
+fun AccountOption(icon: ImageVector, text: String ,onclick : ()-> Unit ) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 8.dp),
         colors = CardDefaults.cardColors(containerColor = Color.White),
-        onClick = { /* Handle option click */ }
+        onClick = {}
     ) {
         Row(
             modifier = Modifier

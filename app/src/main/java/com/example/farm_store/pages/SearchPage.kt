@@ -23,10 +23,10 @@ fun SearchPage() {
     val categories = listOf("Grains", "Vegetables", "Fruits")
     val products = listOf(
         product("Wheat", R.drawable.mango),
-        product("Rice", R.drawable.pexels_pixabay_54084),
+        product("Rice", R.drawable.wheat),
         product("Millet", R.drawable.mango),
-        product("Corn", R.drawable.pexels_pixabay_54084),
-        product("Buckwheat", R.drawable.pexels_pixabay_54084)
+        product("Corn", R.drawable.wheat),
+        product("Buckwheat", R.drawable.wheat)
     )
 
     Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {

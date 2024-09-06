@@ -6,6 +6,8 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -30,7 +32,7 @@ fun homePage(
             .verticalScroll(rememberScrollState())
             .padding(16.dp)
     ) {
-        WelcomeSection()
+        WelcomeSection(navController)
         Spacer(modifier = Modifier.height(24.dp))
         FeaturedProductsSection()
         Spacer(modifier = Modifier.height(24.dp))
@@ -39,12 +41,15 @@ fun homePage(
 }
 
 @Composable
-fun WelcomeSection() {
+fun WelcomeSection(navController: NavHostController) {
+    Row(verticalAlignment = Alignment.CenterVertically , horizontalArrangement = Arrangement.SpaceEvenly){
     Text(
         text = "Welcome to Farm Store",
         style = MaterialTheme.typography.headlineMedium,
         fontWeight = FontWeight.Bold
     )
+        IconButton(onClick = {navController.navigate("Notification")}) { Icon(Icons.Default.Notifications , contentDescription = null ) }
+    }
     Spacer(modifier = Modifier.height(8.dp))
     Text(
         text = "Fresh produce straight from the farm to your table!",
@@ -87,7 +92,7 @@ fun ProductCard(product: Product) {
             )
             Column(modifier = Modifier.padding(8.dp)) {
                 Text(text = product.name, style = MaterialTheme.typography.titleMedium)
-                Text(text = "$${product.price}", style = MaterialTheme.typography.bodyMedium)
+                Text(text = "${product.price} Rupees", style = MaterialTheme.typography.bodyMedium)
             }
         }
     }

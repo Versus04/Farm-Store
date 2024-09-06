@@ -1,3 +1,4 @@
+import android.app.Notification
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
@@ -16,6 +17,7 @@ import com.example.farm_store.pages.AccountPage
 import com.example.farm_store.pages.SearchPage
 import com.example.farm_store.pages.cartPage
 import com.example.farm_store.pages.homePage
+import com.example.farm_store.pages.insidepages.WeeklyReportPage
 import com.example.farm_store.viewmodels.AuthViewModel
 
 @Composable
@@ -28,7 +30,7 @@ fun AppScreen( modifier: Modifier,authViewModel: AuthViewModel) {
         navitem("Home", Icons.Default.Home, { navController.navigate("Home") }),
         navitem("Search", Icons.Default.Search, { navController.navigate("Search") }),
         navitem("Cart", Icons.Default.ShoppingCart, { navController.navigate("Cart") }),
-        navitem("Person", Icons.Default.Person, { navController.navigate("Person") }),
+        navitem("Bargain", Icons.Default.Person, { navController.navigate("Negotiation") }),
         navitem("Account", Icons.Default.AccountCircle, { navController.navigate("Account") })
     )
 
@@ -76,7 +78,7 @@ fun ContentScreen(
         composable("Home") { homePage(Modifier, navController, authViewModel) }
         composable("Cart") { cartPage() }
         composable("Search") { SearchPage() }
-        composable("Person") { /* Implement Person screen */ }
+        composable("Negotiation") {NegotiationPage() }
         composable("Account") {
             AccountPage(
                 onLogout = {
@@ -86,7 +88,10 @@ fun ContentScreen(
                         popUpTo("Home") { inclusive = true }
                     }
                 }
-            )
+             , navController = navController)
         }
+        composable("Notification") {NotificationsPage(navController) }
+        composable("weekly") {WeeklyReportPage(navController) }
+
     }
 }
