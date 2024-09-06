@@ -52,9 +52,7 @@ fun SignUpPage(modifier: Modifier,
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .drawBehind {
-                drawRect(brush = brush, alpha = 0.3f)
-            }
+
     ) {
         Column(
             modifier = Modifier
@@ -76,8 +74,8 @@ fun SignUpPage(modifier: Modifier,
                 onValueChange = { email = it },
                 label = "Email",
                 icon = Icons.Default.Email,
-                keyboardType = KeyboardType.Email
-            )
+                keyboardType = KeyboardType.Email, )
+            
             Spacer(modifier = Modifier.height(16.dp))
             CustomTextField(
                 value = password,
@@ -99,7 +97,7 @@ fun SignUpPage(modifier: Modifier,
             ) {
                 Text(
                     "Create Account",
-                    color = gradientColors[0],
+                    color = Color.White,
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold
                 )
@@ -107,7 +105,10 @@ fun SignUpPage(modifier: Modifier,
 
             Spacer(modifier = Modifier.height(16.dp))
             TextButton(onClick = { navController.navigate("login") }) {
-                Text("Have an account? Login", color = Color.Black)
+                Row{
+                    Text("Have an account? ", color = Color.Black)
+                    Text("Login" , color =Color(0xFFFFBF00))
+                }
             }
         }
     }

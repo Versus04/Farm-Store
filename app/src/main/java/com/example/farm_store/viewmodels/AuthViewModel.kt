@@ -11,10 +11,13 @@ import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
 
 class AuthViewModel : ViewModel() {
+    private val _isLoggedIn = MutableStateFlow(false)
+    val isLoggedIn: StateFlow<Boolean> = _isLoggedIn.asStateFlow()
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
     private val _authState = MutableLiveData<AuthState>(AuthState.Unauthenticated)
     val authState: LiveData<AuthState> = _authState
@@ -33,6 +36,8 @@ class AuthViewModel : ViewModel() {
         auth.signInWithEmailAndPassword(email,passwd).addOnCompleteListener { task->
             if (task.isSuccessful){
                 _authState.value = AuthState.Authenticated
+                _isLoggedIn.value = true
+
             }else{
                 _authState.value = AuthState.Error(task.exception?.message ?: "Unknown error")
             }
@@ -47,6 +52,8 @@ class AuthViewModel : ViewModel() {
         auth.createUserWithEmailAndPassword(email,passwd).addOnCompleteListener { task->
             if (task.isSuccessful){
                 _authState.value = AuthState.Authenticated
+                val loggedIn = true // Set this based on your actual auth check
+                _isLoggedIn.value = loggedIn
             }else{
                 _authState.value = AuthState.Error(task.exception?.message ?: "Unknown error")
             }
@@ -55,6 +62,8 @@ class AuthViewModel : ViewModel() {
     fun signout(){
         auth.signOut()
         _authState.value = AuthState.Unauthenticated
+        _isLoggedIn.value = false
+
     }
 
     fun checkAuthStatus() {
@@ -62,6 +71,7 @@ class AuthViewModel : ViewModel() {
             _authState.value = AuthState.Unauthenticated
         } else {
             _authState.value = AuthState.Authenticated
+            _isLoggedIn.value = true
         }
     }
 
