@@ -27,7 +27,7 @@ FarmStore is a mobile application designed to connect local farmers with consume
 
 1. Clone the repository:
    ```
-   git clone https://github.com/yourusername/farmstore-app.git
+   git clone https://github.com/yourusername/Farm-Store.git
    ```
 
 2. Open the project in Android Studio.
